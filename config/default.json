@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://Trevaughn:z77Qi8F1tPGWfkfD@merntrial.nygzs.mongodb.net/MernTrial?retryWrites=true&w=majority",
+    "jwtSecret": "secretsecretsecret"
+}
