@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const config = require('config');
 const morgan = require('morgan');
+require('dotenv').config();
 
 
 const app = expresss();
@@ -13,7 +14,7 @@ app.use(bodyParser.json());
 app.use(morgan('combined'));
 
 //DB Config
-const db = config.get('mongoURI')
+const db = process.env.MONGO_URI;
 
 //Connect to Mongo
 mongoose

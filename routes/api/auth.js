@@ -3,10 +3,11 @@ const router = express.Router();
 const bCrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
+const latency = require('../../middleware/LatencyMiddleware')
 
 const User = require('../../models/user');
 
-router.post('/login', (req, res) => {
+router.post('/login', latency, (req, res) => {
     const { email, password } = req.body;
 
 
@@ -37,10 +38,10 @@ router.post('/login', (req, res) => {
                                 )
                             })
                     }
-                })
+                }).catch(err => res.status(500).json({ message: 'Could not process credentials' }))
 
         })
-        .catch(err => res.status(404).json({ message: 'User does not exist' }))
+        .catch(err => res.status(404).json({ message: 'User not in our system, please register to use our services' }))
 
 
 });

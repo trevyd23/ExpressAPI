@@ -66,7 +66,8 @@ router.get('/user-info', authMiddleWare, (req, res) => {
                 RegisteredOn: new Date(user.registeredDate).toLocaleString()
             }
             res.status(200).json(userData)
-        });
+        })
+        .catch(err => res.status(403).json({ message: 'User needs to be reauthenticated' }))
 });
 
 module.exports = router;
