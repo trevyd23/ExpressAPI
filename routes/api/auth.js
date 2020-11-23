@@ -4,6 +4,7 @@ const bCrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const latency = require('../../middleware/LatencyMiddleware')
+const secret = process.env.JWT_SECRET
 
 const User = require('../../models/user');
 
@@ -24,7 +25,7 @@ router.post('/login', latency, (req, res) => {
                                 id: user._id,
                                 name: user.username
                             },
-                            config.get('jwtSecret'),
+                            secret,
                             { expiresIn: 3600 },
                             (err, token) => {
                                 if (err) throw err;

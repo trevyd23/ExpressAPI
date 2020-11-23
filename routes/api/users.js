@@ -55,6 +55,8 @@ router.post('/register/user', (req, res) => {
 
 });
 
+
+
 router.get('/user-info', authMiddleWare, (req, res) => {
     User.findById(req.user.id)
         .select('-password')
