@@ -26,7 +26,7 @@ router.post('/create-cart', authMiddleware, (req, res) => {
         .then(cart => {
             const arr = cart.filter(x => x.user.toString() === req.body.id)
             if (arr.length !== 0) {
-                res.status(400).
+                return res.status(400).
                     json({
                         cart: cart.filter(x => x.user.toString() === req.body.id),
                         message: 'Cart already exists for this user'
@@ -61,7 +61,7 @@ router.delete('/delete-item/:id', authMiddleware, (req, res) => {
 
                 userCart[0].subTotal = userCart[0].subTotal - (removedItem[0].quantity * removedItem[0].price)
             } else {
-                res.status(404).json({ message: 'Item is not in cart' })
+                return res.status(404).json({ message: 'Item is not in cart' })
             }
 
             Cart.findByIdAndUpdate(userCart[0]._id, userCart[0])

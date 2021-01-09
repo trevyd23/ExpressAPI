@@ -26,7 +26,7 @@ router.post('/login', latency, (req, res) => {
                                 name: user.username
                             },
                             secret,
-                            { expiresIn: 3600 },
+                            { expiresIn: 1800 },
                             (err, token) => {
                                 if (err) throw err;
                                 res.status(200).json({
