@@ -1,6 +1,16 @@
 .remove-btn {
     margin-right: 0.5rem;
   }
+
+  .App
+  {
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+  }
   
   .fade-enter {
     opacity: 0.01;
@@ -20,12 +30,14 @@
     transition: opacity 1000ms ease-in;
   }
 
-  .button 
+  .nav-list
   {
-  
+    cursor: pointer;
+    
   }
 
-  .modal-container
+  .nav-list:hover
   {
-  
+    border-bottom: 3px solid white;
+    transition: border-bottom 100ms ease-in;
   }

@@ -4,12 +4,13 @@ import { Button, Container, Modal, ModalBody, ModalHeader, Toast, ToastBody, Toa
 
 const ErrorModal = () => {
     const [modalOpen, setModalOpen] = useState(false)
-    const errorMessage = useSelector(state => state.items.errorMessage)
+    const itemErrorMessage = useSelector(state => state.items.errorMessage)
+    const userErrorMessage = useSelector(state => state.user.errorMessage)
+    const cartErrorMessage = useSelector(state => state.cart.errorMessage)
 
     useEffect(() => {
-        console.log("error message?", errorMessage);
-        errorMessage !== '' ? setModalOpen(true) : setModalOpen(false)
-    }, [errorMessage])
+        itemErrorMessage || userErrorMessage ? setModalOpen(true) : setModalOpen(false)
+    }, [itemErrorMessage, userErrorMessage, cartErrorMessage])
 
 
     const toggle = () => {
@@ -17,19 +18,15 @@ const ErrorModal = () => {
     }
 
     return (
-        <Container style={{ width: '10rem', height: '10rem', alignItems: "center", justifyContent: "center" }} >
+        <Container style={{ alignItems: "center", justifyContent: "center" }} >
             { modalOpen ?
-                <div className="p-3 my-2 rounded bg-docs-transparent-grid" style={{ width: '20rem', alignSelf: "center" }}>
-                    <Toast>
-                        <ToastHeader>
-                            Error processing Request
-                </ToastHeader>
-                        <ToastBody>
-                            {errorMessage.toString()}
-                            <Button color='dark' onClick={toggle} style={{ marginTop: '2rem' }} block>OK</Button>
-                        </ToastBody>
-                    </Toast>
-                </div>
+                <Modal isOpen={modalOpen} toggle={toggle}>
+                    <ModalHeader toggle={toggle}>Error processing request</ModalHeader>
+                    <ModalBody>
+                        {itemErrorMessage !== '' ? itemErrorMessage.toString() : userErrorMessage}
+                        <Button color='dark' onClick={toggle} style={{ marginTop: '2rem' }} block>OK</Button>
+                    </ModalBody>
+                </Modal>
                 : <div></div>}
         </Container>
     )

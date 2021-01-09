@@ -1,6 +1,9 @@
 import types from '../actions/types';
 
 const initialState = {
+    user: {
+        token: localStorage.getItem('token')
+    },
     items: [],
     isFetching: false,
     isError: false,
@@ -23,6 +26,13 @@ export default function (state = initialState, action) {
                 isError: false,
                 errorMessage: ''
 
+            }
+        case types.UPDATE_ITEM:
+            return {
+                ...state,
+                isFetching: false,
+                isError: false,
+                errorMessage: action.payload.errorMessage
             }
         case types.DELETE_ITEM:
             {

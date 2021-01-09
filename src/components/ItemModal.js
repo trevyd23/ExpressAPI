@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Container } from 'reactstrap'
-import { addItem } from '../actions/itemActions'
+import { addItem } from '../redux/actions/itemActions'
 import '../index.css'
 const ItemModal = () => {
     const [modalOpen, setModalOpen] = useState(false);

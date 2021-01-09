@@ -1,28 +1,31 @@
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import store from './store'
-import ItemModal from './components/ItemModal'
-import { Container } from 'reactstrap'
-import AppNavbar from './components/AppNavbar'
-import ShoppingList from './components/ShoppingList'
-import ErrorModal from './components/ErrorModal';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ShoppingPage from './pages/ShoppingPage'
+import LoginPage from './pages/LoginPage'
+
 
 
 function App() {
+
+  // useEffect(() => {
+  //   store.dispatch(loadUser())
+  // }, [])
   return (
-    <Provider store={store}>
-      <div className="App">
-        <AppNavbar />
-        <Container>
-          <ItemModal />
-          <ErrorModal />
-          <ShoppingList />
-        </Container>
-      </div>
-    </Provider>
-  );
+    <BrowserRouter>
+      <Provider store={store}>
+        <div className="App">
+          <Switch>
+            <Route path="/" component={LoginPage} exact />
+            <Route path="/shopping" component={ShoppingPage} />
+          </Switch>
+        </div>
+      </Provider>
+    </BrowserRouter>
+  )
 }
 
 
