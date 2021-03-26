@@ -72,4 +72,10 @@ router.get('/user-info', authMiddleWare, (req, res) => {
         .catch(err => res.status(403).json({ message: 'User needs to be reauthenticated' }))
 });
 
+router.get('', authMiddleWare, (req, res) => {
+    User.find()
+        .then(users => res.json(users))
+        .catch(err => res.status(400).send(err))
+})
+
 module.exports = router;
