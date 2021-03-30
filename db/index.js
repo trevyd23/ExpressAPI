@@ -1,3 +1,19 @@
+const mongoose = require('mongoose');
+const DB_uri = "mongodb://localhost:27017/studentsDB";
+
+
+const dbconnect = async () => {
+    await mongoose.connect(DB_uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false })
+        .then(() => { console.log('Connected to db') })
+        .catch((err) => console.log('Error connecting to db', err))
+    return mongoose.connection
+}
+
+const dbclose = async () => {
+    return await mongoose.disconnect();
+}
+
+module.exports = { dbconnect, dbclose };
 // const mongoose = require('mongoose');
 
 // //Connect to Mongo
