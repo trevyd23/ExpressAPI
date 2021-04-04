@@ -1,0 +1,10 @@
+version: '2'
+
+services: 
+  fe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: client_mern
+    ports: 
+      - "8080:80"
