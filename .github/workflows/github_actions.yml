@@ -6,7 +6,7 @@ name: Workflow to run tests
 on: 
   push:
       branches:
-          - master
+          - main
 
 jobs:
   test:
