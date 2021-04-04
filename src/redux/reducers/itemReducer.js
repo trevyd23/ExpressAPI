@@ -1,6 +1,6 @@
 import types from '../actions/types';
 
-const initialState = {
+export const itemInitialState = {
     user: {
         token: localStorage.getItem('token')
     },
@@ -10,7 +10,7 @@ const initialState = {
     errorMessage: ''
 }
 
-export default function (state = initialState, action) {
+export default function (state = itemInitialState, action) {
     switch (action.type) {
         case types.GET_ITEMS:
             return {

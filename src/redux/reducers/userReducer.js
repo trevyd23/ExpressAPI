@@ -1,6 +1,6 @@
 import types from '../actions/types';
 
-const initialState = {
+export const userInitialState = {
     user: {},
     token: localStorage.getItem('token'),
     isAuthenticated: false,
@@ -9,7 +9,7 @@ const initialState = {
     errorMessage: null
 }
 
-export default function (state = initialState, action) {
+export default function (state = userInitialState, action) {
 
     switch (action.type) {
         case types.USER_FETCHING:

@@ -1,6 +1,6 @@
 import types from '../actions/types';
 
-const initialState =
+export const cartInitialState =
 {
     items: [],
     isFetching: false,
@@ -8,7 +8,7 @@ const initialState =
     errorMessage: '',
     subTotal: 0
 }
-export default function (state = initialState, action) {
+export default function (state = cartInitialState, action) {
 
     switch (action.type) {
         case types.CART_FETCHING:

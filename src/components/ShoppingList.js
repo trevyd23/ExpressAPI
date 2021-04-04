@@ -32,7 +32,6 @@ const ShoppingList = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('token', localStorage.getItem('token'))
         dispatch(getItems())
     }, [dispatch])
 

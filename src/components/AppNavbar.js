@@ -25,8 +25,9 @@ import { isEmpty } from 'lodash';
 
 
 const AppNavbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [showCart, setShowCart] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
+    const [showCart, setShowCart] = useState(false)
+    const [full, setFull] = useState(true)
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const userName = useSelector(state => state.user.user.name)
     const cartItems = useSelector(state => state.cart.items)
@@ -64,7 +65,7 @@ const AppNavbar = () => {
     }
 
     return (<>
-        <Navbar color='dark' dark expand='md' className='mb-5' full >
+        <Navbar color='dark' dark expand='md' className='mb-5' >
             <NavbarBrand href='/'>{`${userName}'s Shopping List`}</NavbarBrand>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>

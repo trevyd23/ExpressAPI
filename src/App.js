@@ -16,8 +16,8 @@ function App() {
   // }, [])
   return (
     <BrowserRouter>
-      <Provider store={store}>
-        <div className="App">
+      <Provider store={store} data-testid='Provider'>
+        <div className="App" >
           <Switch>
             <Route path="/" component={LoginPage} exact />
             <Route path="/shopping" component={ShoppingPage} />
