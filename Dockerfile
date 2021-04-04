@@ -1,13 +1,13 @@
 FROM node:12.16.3
 
-WORKDIR /client
+WORKDIR /mernShoppingList
 
 ENV PORT 80
 
-COPY package.json /client/package.json
+COPY package.json /mernShoppingList/package.json
 
 RUN npm install
 
-COPY . /client
+COPY . /mernShoppingList
 
-CMD [ "npm", "start" ]
+CMD [ "node", "server.js" ]
