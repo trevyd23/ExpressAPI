@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import ShoppingPage from './ShoppingPage'
 import React from 'react';
 import { userInitialState } from '../redux/reducers/userReducer'
-import { createMockStore, renderWithRedux } from '../../utilities/testUtilityFunctions'
+import { renderWithRedux } from '../../utilities/testUtilityFunctions'
 import { cartInitialState } from '../redux/reducers/cartReducer';
 import { itemInitialState } from '../redux/reducers/itemReducer';
 import { Router } from 'react-router';
