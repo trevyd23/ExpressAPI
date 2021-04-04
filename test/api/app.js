@@ -1,6 +1,7 @@
 const express = require('express'),
     app = express(),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    authMiddleware = require('../../middleware/AuthMiddleware');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,10 +14,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //     .catch((err) => console.log('Eroor con to db', err))
 
 
+
 const Student = require('../../models/student')
+const User = require('../../models/user')
 
 app.get('/students', (req, res) => {
     Student.find()
+        .then(students => {
+            res.status(200)
+            res.json(students)
+        })
+        .catch(err => res.status(400).send(err))
+})
+
+app.get('/users', authMiddleware, (req, res) => {
+    User.find()
         .then(users => {
             res.status(200)
             res.json(users)
@@ -41,6 +53,13 @@ app.get('/:id', (req, res) => {
             }
         })
         .catch((err) => res.status(500).send(err))
+})
+
+app.post('/newUser', (req, res) => {
+    new User(req.body)
+        .save()
+        .then((data) => res.status(201).send(data))
+        .catch((err) => res.status(400).send(err))
 })
 
 app.listen(3000, () => console.log("Test server started at port 3000"))

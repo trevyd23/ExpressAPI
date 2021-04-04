@@ -1,22 +1,19 @@
 const expect = require('chai').expect,
     request = require('supertest'),
-    basicSetup = require('../basicSetup'),
     app = require('./app');
 
 const Student = require('../../models/student')
-const { beforeEach, afterEach } = require('mocha');
+const User = require('../../models/user')
 const mongooseConnect = require('../../db/index');
 const mongoose = require('mongoose');
 
 
 async function dropAllCollections() {
-    console.log('Clearing database')
     const collections = Object.keys(mongoose.connection.collections)
     for (const collectionName of collections) {
         const collection = mongoose.connection.collections[collectionName]
         try {
             await collection.drop()
-            console.log('Cleared database')
         } catch (error) {
             // This error happens when you try to drop a collection that's already dropped. Happens infrequently. 
             // Safe to ignore. 
@@ -33,11 +30,10 @@ async function dropAllCollections() {
 
 
 
-describe('POST: /save route to insert data', () => {
+describe('Api integration tests', () => {
     //basicSetup();         // imported from test/helpers/basicSetup.js
 
     before((done) => {
-        console.log('starting tests')       // runs before each test case
         before(require('mongodb-runner/mocha/before'));
         mongooseConnect.dbconnect().finally(() => done())
 
@@ -45,7 +41,6 @@ describe('POST: /save route to insert data', () => {
     })
 
     after((done) => {
-        console.log('closing test')
         after(require('mongodb-runner/mocha/after'));
         dropAllCollections().finally(() => mongooseConnect.dbclose().finally(() => done()))
 
@@ -53,30 +48,53 @@ describe('POST: /save route to insert data', () => {
     })
 
 
-    it('has a module', (done) => {
+    it('student model has a module', (done) => {
         expect(Student).to.be.not.null
         done()
     })
 
-    it('saves a new Student', async (done) => {
-        const student = new Student({ name: 'Joe', branch: 'John' })
-        await student.save()
-        await Student.findOne({ name: 'Joe' }).finally(() => {
-            const expected = 'Joe'
-            const actual = foundStudent.name
-            expect(actual).to.equal(expected)
-            done()
-
-        })
-
+    it('user model has a module', (done) => {
+        expect(User).to.be.not.null
+        done()
     })
 
 
+    it('creates a user in the database', (done) => {
+        const dataToSend = { username: 'tre', password: 'tretre', email: 'tre@gmail.com' }
+        request(app).post('/newUser')
+            .send(dataToSend)
+            .then((res) => {
+                expect(res.statusCode).to.equal(201)
+                expect(res.body).to.be.an('object')
+                done()
+            })
+            .catch((err) => done(err))
+
+    })
+
+    it('should send a 403 error trying to get the users', (done) => {
+        request(app).get('/users')
+            .then((res) => {
+                expect(res.status).to.equal(403)
+                done()
+            })
+            .catch((err) => done(err))
+    })
+
+    it('should return 401 at users endpoint once incorrect token is provided', (done) => {
+        request(app).get('/users')
+            .set('Authorization', 'abc123')
+            .then((res) => {
+                expect(res.status).to.equal(401)
+                expect(res.json).to.not.be.null
+                done()
+            })
+            .catch((err) => done(err))
+    })
 
     it('return all Students', (done) => {
         request(app).get('/students')
             .then((res) => {
-                console.log(res)
                 expect(res.status).to.equal(200);
                 expect(res.body).to.be.an('Array')
                 done()
@@ -84,7 +102,7 @@ describe('POST: /save route to insert data', () => {
             .catch((err) => done(err))
     })
 
-    it('valid data being added', (done) => {            // test case 1
+    it('valid data being added to add student endpoint', (done) => {            // test case 1
         let toSendData = { name: 'john doe', branch: 'computer science' }
         request(app).post('/save')
             .send(toSendData)
@@ -94,12 +112,11 @@ describe('POST: /save route to insert data', () => {
                 done();
             })
             .catch((err) => {
-                console.log('Error being given is:', err)
                 done(err)
             })
     })
 
-    it('no _id field given', (done) => {        // test case 2
+    it('no _id field given to add student endpoint', (done) => {        // test case 2
         request(app).post('/save')
             .send({ branch: 'computer science' })
             .then((res) => {
