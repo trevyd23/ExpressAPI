@@ -1,0 +1,43 @@
+.remove-btn {
+    margin-right: 0.5rem;
+  }
+
+  .App
+  {
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+  }
+  
+  .fade-enter {
+    opacity: 0.01;
+  }
+  
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 1000ms ease-in;
+  }
+  
+  .fade-exit {
+    opacity: 1;
+  }
+  
+  .fade-exit-active {
+    opacity: 0.01;
+    transition: opacity 1000ms ease-in;
+  }
+
+  .nav-list
+  {
+    cursor: pointer;
+    
+  }
+
+  .nav-list:hover
+  {
+    border-bottom: 3px solid white;
+    transition: border-bottom 100ms ease-in;
+  }
