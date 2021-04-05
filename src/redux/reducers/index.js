@@ -5,9 +5,9 @@ import userReducer from './userReducer'
 import cartReducer from './cartReducer'
 
 const appReducer = combineReducers({
-    cart: cartReducer,
-    items: itemReducer,
-    user: userReducer
+  cart: cartReducer,
+  items: itemReducer,
+  user: userReducer,
 })
 
 export default appReducer
