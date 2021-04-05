@@ -67,7 +67,7 @@ router.delete('/delete-item/:id', authMiddleware, (req, res) => {
             Cart.findByIdAndUpdate(userCart[0]._id, userCart[0])
                 .then(() => {
                     Cart.findById(userCart[0]._id)
-                        .then(cart => res.status(204).json(cart))
+                        .then(cart => res.status(200).json(cart))
                         .catch(err => res.status(404).send(err))
                 })
                 .catch(err => res.status(404).json({
